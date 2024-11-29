@@ -6,8 +6,15 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-gype: ip
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: app-group
+    alb.ingress.kubernetes.io/group.order: '1'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTP": 8080}, {"HTTP": 9000}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:869935091451:certificate/9c3690cf-3ebb-4846-bfaf-480c09e9d9a9
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
 spec:
+  ingressClassName: alb
   rules:
   - http:
       paths:
