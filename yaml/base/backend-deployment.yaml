@@ -28,12 +28,16 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: MONGODB_URI
+        - name: DATABASE
           valueFrom:
             secretKeyRef:
               name: mongodb-secret
               key: uri
               optional: true
+        volumeMounts:
+        - name: mongodb-cert
+          mountPath: /etc/ssl/certs
+          subPath: global-bundle.pem
         resources:
           requests:
             memory: "512Mi"
@@ -41,3 +45,7 @@ spec:
           limits:
             memory: "1Gi"
             cpu: "1000m"
+      volumes:
+      - name: mongodb-cert
+        secret:
+          secretName: mongodb-secret
