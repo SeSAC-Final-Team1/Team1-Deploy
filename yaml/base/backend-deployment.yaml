@@ -4,7 +4,7 @@ metadata:
   name: backend
   namespace: app
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: backend
@@ -33,10 +33,9 @@ spec:
             secretKeyRef:
               name: mongodb-secret
               key: uri
-              optional: true
         volumeMounts:
         - name: mongodb-cert
-          mountPath: /etc/ssl/certs
+          mountPath: /etc/ssl/certs/global-bundle.pem
           subPath: global-bundle.pem
         resources:
           requests:
