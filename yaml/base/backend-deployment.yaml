@@ -26,7 +26,7 @@ spec:
       - name: backend
         image: 869935091451.dkr.ecr.ap-northeast-2.amazonaws.com/backend:241204-1
         ports:
-        - containerPort: 8080
+        - containerPort: 8080              
         env:
         - name: DATABASE
           valueFrom:
@@ -34,9 +34,8 @@ spec:
               name: mongodb-secret
               key: uri
         volumeMounts:
-        - name: mongodb-cert
-          mountPath: /etc/ssl/certs/global-bundle.pem
-          subPath: global-bundle.pem
+        - name: mongo-certs
+          mountPath: "/etc/ssl/certs"
         resources:
           requests:
             memory: "512Mi"
@@ -45,6 +44,6 @@ spec:
             memory: "1Gi"
             cpu: "1000m"
       volumes:
-      - name: mongodb-cert
+      - name: mongo-certs
         secret:
           secretName: mongodb-secret
